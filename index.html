@@ -9,10 +9,13 @@
     
     <style>
         :root {
-            --bg-color: #f0f4f8;
+            /* Hintergrundfarbe (wird durch das Bild überlagert, dient als Fallback) */
+            --bg-color: #f0f4f8; 
             --text-color: #1a1a1a;
             --bio-text-color: #555;
-            --container-bg: #ffffff;
+            
+            /* Boxen-Hintergrund: Leicht transparentes Weiß für Glas-Effekt */
+            --container-bg: rgba(255, 255, 255, 0.92); 
             --btn-text-color: #ffffff;
             
             /* Markenfarben */
@@ -30,14 +33,48 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            margin: 0;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            margin: 0;
+            color: var(--text-color);
+            position: relative; /* Wichtig für das Hintergrundbild-Overlay */
+            overflow-x: hidden; /* Verhindert horizontales Scrollen */
+        }
+
+        /* --- CSS FÜR DAS HINTERGRUNDBILD --- */
+        body::before {
+            content: "";
+            position: fixed; /* Fixiert das Bild beim Scrollen */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            
+            /* DEINE DATEI: Hintergrund.jpg */
+            background-image: url('Hintergrund.jpg'); 
+            
+            background-size: cover; /* Bild bedeckt den ganzen Bildschirm */
+            background-position: center; /* Bild zentrieren */
+            background-repeat: no-repeat;
+            
+            /* TRANSPARENZ DES BILDES (0.0 = unsichtbar, 1.0 = voll sichtbar) */
+            opacity: 0.3; /* "Ein wenig transparent" = 30% Sichtbarkeit */
+            
+            z-index: -1; /* Legt das Bild HINTER den Inhalt */
+        }
+
+        /* Haupt-Inhaltsbereich */
+        .page-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            min-height: 100vh;
             padding: 40px 20px;
+            z-index: 1; /* Legt den Inhalt VOR das Hintergrundbild */
         }
 
         /* LAYOUT FÜR PC (Nebeneinander) */
@@ -50,15 +87,21 @@
             max-width: 1200px;
         }
 
+        /* Allgemeine Boxen-Styling (mit Glas-Effekt) */
+        .links-container, .game-container {
+            background: var(--container-bg);
+            border-radius: 40px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+            backdrop-filter: blur(5px); /* Leichter Unschärfe-Effekt hinter den Boxen */
+            border: 1px solid rgba(255,255,255,0.3); /* Subtiler Rahmen für Glas-Look */
+        }
+
         /* Box 1: Links & Profil */
         .links-container {
             text-align: center;
             width: 100%;
             max-width: 460px;
-            background: var(--container-bg);
             padding: 50px 30px 40px 30px;
-            border-radius: 40px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
             flex: 1;
         }
 
@@ -66,10 +109,7 @@
         .game-container {
             width: 100%;
             max-width: 600px;
-            background: var(--container-bg);
             padding: 40px 30px;
-            border-radius: 40px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
             text-align: center;
             flex: 1.2;
             display: flex;
@@ -83,7 +123,7 @@
         }
 
         .profile-img {
-            width: 340px; /* Sehr groß, passt aber genau in die Box */
+            width: 340px; 
             height: 340px;
             border-radius: 50%;
             object-fit: cover;
@@ -141,168 +181,248 @@
         .btn-twitter { background-color: var(--color-twitter-x); }
         .btn-discord { background-color: var(--color-discord); }
 
+        /* --- SPIEL OVERLAY CSS --- */
+        .canvas-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: inset 0 5px 15px rgba(0,0,0,0.05);
+            border: 3px solid #eee;
+        }
+
+        #gameCanvas {
+            display: block;
+            width: 100%;
+            background: #f9f9f9;
+            cursor: pointer;
+        }
+
+        .game-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.85);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            backdrop-filter: blur(3px);
+        }
+
+        .play-btn {
+            background-color: var(--color-twitch);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 5px 15px rgba(145, 70, 255, 0.4);
+        }
+
+        .play-btn:hover {
+            transform: scale(1.05);
+            background-color: #7a38e0;
+        }
+
+        #overlayTitle {
+            margin: 0 0 15px 0;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #1a1a1a;
+        }
+
         /* Responsive: Handy & Tablet */
         @media (max-width: 950px) {
+            .page-content { padding: 20px 10px; }
             .main-wrapper {
                 flex-direction: column;
                 align-items: center;
+                gap: 20px;
             }
             .profile-img { width: 250px; height: 250px; }
             .game-container { padding: 30px 15px; }
-            #gameCanvas { width: 100% !important; height: auto !important; }
+            .canvas-wrapper { width: 100%; }
         }
     </style>
 </head>
 <body>
 
-    <div class="main-wrapper">
+    <div class="page-content">
         
-        <div class="links-container">
-            <div class="profile-header">
-                <img src="Profilbild.png" alt="Profilbild Kava1ari" class="profile-img">
-                <h1>Kava1ari</h1>
-                <p class="bio">Hey, folgend sind meine vorhandenen Social-Media Kanäle <br>--Kava1ari--</p>
+        <div class="main-wrapper">
+            
+            <div class="links-container">
+                <div class="profile-header">
+                    <img src="Profilbild.png" alt="Profilbild Kava1ari" class="profile-img">
+                    <h1>Kava1ari</h1>
+                    <p class="bio">Hey, folgend sind meine vorhandenen Social-Media Kanäle <br>--Kava1ari--</p>
+                </div>
+
+                <div class="links">
+                    <a href="https://twitch.tv/kava1ari" class="link-btn btn-twitch" target="_blank">
+                        <i class="fab fa-twitch"></i> Twitch
+                    </a>
+
+                    <a href="https://www.youtube.com/channel/UC4V-PtJnd8RHbO6JhqjyIDw" class="link-btn btn-youtube" target="_blank">
+                        <i class="fab fa-youtube"></i> YouTube
+                    </a>
+
+                    <a href="https://www.tiktok.com/@kava1ari" class="link-btn btn-tiktok" target="_blank">
+                        <i class="fab fa-tiktok"></i> TikTok
+                    </a>
+
+                    <a href="https://instagram.com/kava1ari" class="link-btn btn-instagram" target="_blank">
+                        <i class="fab fa-instagram"></i> Instagram
+                    </a>
+
+                    <a href="https://twitter.com/kava1ari" class="link-btn btn-twitter" target="_blank">
+                        <i class="fab fa-x-twitter"></i> Twitter / X
+                    </a>
+
+                    <a href="DEIN_DISCORD_INVITE_LINK" class="link-btn btn-discord" target="_blank">
+                        <i class="fab fa-discord"></i> Discord
+                    </a>
+                </div>
             </div>
 
-            <div class="links">
-                <a href="https://twitch.tv/kava1ari" class="link-btn btn-twitch" target="_blank">
-                    <i class="fab fa-twitch"></i> Twitch
-                </a>
+            <div class="game-container">
+                <h3 style="margin: 0 0 10px 0; font-weight: 800; font-size: 1.6rem;">Escape the Banhammer!</h3>
+                <p style="font-size: 1rem; color: #666; margin-bottom: 20px;">Highscore: <span id="highscore" style="font-weight: 700; color: #9146FF; font-size: 1.3rem;">0</span></p>
 
-                <a href="https://www.youtube.com/channel/UC4V-PtJnd8RHbO6JhqjyIDw" class="link-btn btn-youtube" target="_blank">
-                    <i class="fab fa-youtube"></i> YouTube
-                </a>
+                <div class="canvas-wrapper">
+                    
+                    <div id="gameOverlay" class="game-overlay">
+                        <h2 id="overlayTitle">Bereit?</h2>
+                        <button id="playBtn" class="play-btn"><i class="fas fa-play"></i> Start</button>
+                    </div>
 
-                <a href="https://www.tiktok.com/@kava1ari" class="link-btn btn-tiktok" target="_blank">
-                    <i class="fab fa-tiktok"></i> TikTok
-                </a>
+                    <canvas id="gameCanvas" width="500" height="300"></canvas>
 
-                <a href="https://instagram.com/kava1ari" class="link-btn btn-instagram" target="_blank">
-                    <i class="fab fa-instagram"></i> Instagram
-                </a>
+                </div>
 
-                <a href="https://twitter.com/kava1ari" class="link-btn btn-twitter" target="_blank">
-                    <i class="fab fa-x-twitter"></i> Twitter / X
-                </a>
+                <script>
+                    const canvas = document.getElementById('gameCanvas');
+                    const ctx = canvas.getContext('2d');
+                    const highscoreDisplay = document.getElementById('highscore');
+                    const gameOverlay = document.getElementById('gameOverlay');
+                    const playBtn = document.getElementById('playBtn');
+                    const overlayTitle = document.getElementById('overlayTitle');
+                    
+                    // Bilder laden
+                    const playerImg = new Image();
+                    playerImg.src = 'Profilbild.png'; 
 
-                <a href="DEIN_DISCORD_INVITE_LINK" class="link-btn btn-discord" target="_blank">
-                    <i class="fab fa-discord"></i> Discord
-                </a>
-            </div>
-        </div>
+                    const obstacleImg = new Image();
+                    // DEINE DATEI: Bannhammer.jpg
+                    obstacleImg.src = 'Bannhammer.jpg'; 
 
-        <div class="game-container">
-            <h3 style="margin: 0 0 10px 0; font-weight: 800; font-size: 1.6rem;">Escape the Banhammer!</h3>
-            <p style="font-size: 1rem; color: #666; margin-bottom: 20px;">Highscore: <span id="highscore" style="font-weight: 700; color: #9146FF; font-size: 1.3rem;">0</span></p>
+                    let score = 0;
+                    let highscore = 0;
+                    let isPlaying = false; 
 
-            <canvas id="gameCanvas" width="500" height="300" style="background: #f9f9f9; border-radius: 20px; border: 3px solid #eee; cursor: pointer; box-shadow: inset 0 5px 15px rgba(0,0,0,0.05);"></canvas>
+                    const player = { x: 50, y: 220, width: 50, height: 50, dy: 0, jumpForce: 13.5, gravity: 0.7, grounded: false };
+                    const obstacle = { x: 550, y: 220, width: 50, height: 50, speed: 4.5 };
 
-            <script>
-                const canvas = document.getElementById('gameCanvas');
-                const ctx = canvas.getContext('2d');
-                const highscoreDisplay = document.getElementById('highscore');
-                
-                // 1. Profilbild laden (Dein Charakter)
-                const playerImg = new Image();
-                playerImg.src = 'Profilbild.png'; // WICHTIG: Muss exakt so heißen!
+                    function draw() {
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-                // 2. Bannhammer laden (Dein Hindernis)
-                const obstacleImg = new Image();
-                obstacleImg.src = 'Bannhammer.png'; // WICHTIG: Muss im Github exakt so heißen!
+                        ctx.fillStyle = "#e0e0e0";
+                        ctx.fillRect(0, 270, canvas.width, 30); 
 
-                let score = 0;
-                let highscore = 0;
-                let gameActive = true;
-
-                // Spieler & Hindernis Werte
-                const player = { x: 50, y: 220, width: 50, height: 50, dy: 0, jumpForce: 13.5, gravity: 0.7, grounded: false };
-                const obstacle = { x: 550, y: 220, width: 50, height: 50, speed: 4.5 };
-
-                function draw() {
-                    if (!gameActive) return;
-
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-                    // Boden zeichnen
-                    ctx.fillStyle = "#e0e0e0";
-                    ctx.fillRect(0, 270, canvas.width, 30); 
-
-                    // Spieler (Profilbild) zeichnen
-                    if (playerImg.complete && playerImg.naturalWidth !== 0) {
-                        ctx.drawImage(playerImg, player.x, player.y, player.width, player.height);
-                    } else {
-                        // Platzhalter, falls Bild noch lädt
-                        ctx.fillStyle = "#9146FF";
-                        ctx.fillRect(player.x, player.y, player.width, player.height);
-                    }
-
-                    // Hindernis (Bannhammer) zeichnen
-                    if (obstacleImg.complete && obstacleImg.naturalWidth !== 0) {
-                        ctx.drawImage(obstacleImg, obstacle.x, obstacle.y, obstacle.width, obstacle.height);
-                    } else {
-                        // Platzhalter (Rot), falls Bannhammer-Bild noch lädt
-                        ctx.fillStyle = "#FF0000";
-                        ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
-                    }
-
-                    // Schwerkraft & Sprunglogik
-                    player.y += player.dy;
-                    if (player.y + player.height < 270) {
-                        player.dy += player.gravity;
-                        player.grounded = false;
-                    } else {
-                        player.y = 270 - player.height;
-                        player.dy = 0;
-                        player.grounded = true;
-                    }
-
-                    // Hindernis bewegen
-                    obstacle.x -= obstacle.speed;
-                    if (obstacle.x < -obstacle.width) {
-                        obstacle.x = canvas.width + Math.random() * 150; 
-                        score++;
-                        if (score > highscore) {
-                            highscore = score;
-                            highscoreDisplay.innerText = highscore;
+                        if (playerImg.complete && playerImg.naturalWidth !== 0) {
+                            ctx.drawImage(playerImg, player.x, player.y, player.width, player.height);
+                        } else {
+                            ctx.fillStyle = "#9146FF";
+                            ctx.fillRect(player.x, player.y, player.width, player.height);
                         }
-                        // Langsame Beschleunigung
-                        obstacle.speed += 0.05; 
+
+                        if (obstacleImg.complete && obstacleImg.naturalWidth !== 0) {
+                            ctx.drawImage(obstacleImg, obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+                        } else {
+                            ctx.fillStyle = "#FF0000";
+                            ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+                        }
+
+                        if (isPlaying) {
+                            player.y += player.dy;
+                            if (player.y + player.height < 270) {
+                                player.dy += player.gravity;
+                                player.grounded = false;
+                            } else {
+                                player.y = 270 - player.height;
+                                player.dy = 0;
+                                player.grounded = true;
+                            }
+
+                            obstacle.x -= obstacle.speed;
+                            if (obstacle.x < -obstacle.width) {
+                                obstacle.x = canvas.width + Math.random() * 150; 
+                                score++;
+                                if (score > highscore) {
+                                    highscore = score;
+                                    highscoreDisplay.innerText = highscore;
+                                }
+                                obstacle.speed += 0.05; 
+                            }
+
+                            if (player.x < obstacle.x + obstacle.width - 10 &&
+                                player.x + player.width - 10 > obstacle.x &&
+                                player.y < obstacle.y + obstacle.height - 10 &&
+                                player.y + player.height - 10 > obstacle.y) {
+                                
+                                isPlaying = false;
+                                
+                                gameOverlay.style.display = 'flex';
+                                overlayTitle.innerText = 'Game Over!';
+                                overlayTitle.style.color = '#FF0000';
+                                playBtn.innerHTML = '<i class="fas fa-redo"></i> Erneut spielen';
+                            }
+                        }
+
+                        requestAnimationFrame(draw);
                     }
 
-                    // Kollision prüfen (Wenn du vom Hammer erwischt wirst)
-                    // Die "- 10" machen die Hitbox etwas kleiner, damit es fairer ist
-                    if (player.x < obstacle.x + obstacle.width - 10 &&
-                        player.x + player.width - 10 > obstacle.x &&
-                        player.y < obstacle.y + obstacle.height - 10 &&
-                        player.y + player.height - 10 > obstacle.y) {
-                        
-                        // Game Over: Reset Game
+                    playBtn.addEventListener('click', () => {
                         score = 0;
                         obstacle.x = canvas.width + 50;
                         obstacle.speed = 4.5;
+                        player.y = 270 - player.height;
+                        player.dy = 0;
+                        
+                        gameOverlay.style.display = 'none';
+                        isPlaying = true;
+                    });
+
+                    function jump() {
+                        if (isPlaying && player.grounded) {
+                            player.dy = -player.jumpForce;
+                        }
                     }
 
-                    requestAnimationFrame(draw);
-                }
+                    canvas.addEventListener('mousedown', jump);
+                    canvas.addEventListener('touchstart', (e) => {
+                        if (isPlaying) {
+                            e.preventDefault(); 
+                            jump();
+                        }
+                    }, {passive: false});
 
-                function jump() {
-                    if (player.grounded) {
-                        player.dy = -player.jumpForce;
-                    }
-                }
-
-                // Steuerung
-                canvas.addEventListener('mousedown', jump);
-                canvas.addEventListener('touchstart', (e) => {
-                    e.preventDefault(); 
-                    jump();
-                }, {passive: false});
-
-                // Spiel-Schleife starten
-                draw();
-            </script>
+                    draw();
+                </script>
+            </div>
         </div>
-    </div>
 
-</body>
+    </div> </body>
 </html>
