@@ -3,21 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meine Social Media Links</title>
+    <title>Meine Links | Social Bio</title>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
+        /* 1. Globale Variablen & Farben definieren */
         :root {
-            --bg-color: #f4f7f6;
-            --text-color: #333;
-            --accent-color: #000; /* Hauptfarbe der Buttons */
-            --hover-color: #333;
-            --btn-text-color: #fff;
+            --bg-color: #f0f4f8; /* Heller, frischer Hintergrund */
+            --text-color: #1a1a1a;
+            --bio-text-color: #555;
+            --container-bg: #ffffff;
+            --btn-text-color: #ffffff;
+            
+            /* Social Media Markenfarben */
+            --color-instagram: #E1306C;
+            --color-tiktok: #000000;
+            --color-youtube: #FF0000;
+            --color-twitter-x: #000000;
+            --color-facebook: #1877F2;
+            --color-linkedin: #0077B5;
+            --color-pinterest: #BD081C;
+            --color-discord: #5865F2;
+            --color-snapchat: #FFFC00; /* Textfarbe hier anpassen! */
+            --color-twitch: #9146FF;
+            --color-website: #333333;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             display: flex;
@@ -31,117 +45,163 @@
         .container {
             text-align: center;
             width: 100%;
-            max-width: 450px;
-            background: #fff;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            max-width: 420px;
+            background: var(--container-bg);
+            padding: 50px 30px; /* Mehr Padding oben für das Bild */
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+            position: relative;
+        }
+
+        /* 2. DOMINANTES PROFILBILD-STYLING */
+        .profile-header {
+            margin-bottom: 35px;
+            position: relative;
         }
 
         .profile-img {
-            width: 100px;
-            height: 100px;
+            width: 130px; /* Größer & dominanter */
+            height: 130px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid #fff;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
+            border: 5px solid #fff; /* Weißer Rahmen */
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15); /* Stärkerer Schatten */
+            transition: transform 0.3s ease;
         }
 
-        h1 { margin: 0 0 10px 0; font-size: 1.8rem; }
-        .bio { color: #666; margin-bottom: 30px; }
+        .profile-img:hover {
+            transform: scale(1.05) rotate(3deg); /* Kleiner Effekt beim Drüberfahren */
+        }
+
+        h1 { margin: 15px 0 5px 0; font-size: 2rem; font-weight: 800; letter-spacing: -0.5px; }
+        .bio { color: var(--bio-text-color); font-size: 1.1rem; margin-bottom: 0; font-weight: 400; }
 
         .links {
             display: flex;
             flex-direction: column;
-            gap: 15px; /* Abstand zwischen den Buttons */
+            gap: 12px; /* Etwas kompakterer Abstand */
         }
 
+        /* 3. GENERELLES BUTTON-STYLING */
         .link-btn {
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: var(--accent-color);
             color: var(--btn-text-color);
             text-decoration: none;
-            padding: 15px 20px;
-            border-radius: 50px;
+            padding: 16px 20px;
+            border-radius: 15px; /* Moderner, weniger rund */
             font-size: 1.1rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
+            font-weight: 600;
+            transition: all 0.25s ease-in-out;
+            border: none;
             position: relative;
+            overflow: hidden;
         }
 
         .link-btn:hover {
-            background-color: var(--hover-color);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
-        /* Icon-Styling */
+        /* Glanz-Effekt beim Hover */
+        .link-btn::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+        .link-btn:hover::after { left: 100%; }
+
         .link-btn i {
-            margin-right: 15px; /* Abstand zwischen Icon und Text */
-            font-size: 1.3rem;
-            width: 25px; /* Feste Breite für gleichmäßige Ausrichtung */
+            margin-right: 15px;
+            font-size: 1.4rem;
+            width: 30px;
             text-align: center;
         }
 
-        /* Responsive Anpassung für Handys */
+        /* 4. SPEZIFISCHE FARBEN FÜR JEDEN BUTTON */
+        .btn-instagram { background-color: var(--color-instagram); }
+        .btn-tiktok { background-color: var(--color-tiktok); }
+        .btn-youtube { background-color: var(--color-youtube); }
+        .btn-twitter { background-color: var(--color-twitter-x); }
+        .btn-facebook { background-color: var(--color-facebook); }
+        .btn-linkedin { background-color: var(--color-linkedin); }
+        .btn-pinterest { background-color: var(--color-pinterest); }
+        .btn-discord { background-color: var(--color-discord); }
+        .btn-twitch { background-color: var(--color-twitch); }
+        .btn-website { background-color: var(--color-website); }
+
+        /* Sonderfall Snapchat: Gelber Hintergrund braucht dunklen Text */
+        .btn-snapchat { 
+            background-color: var(--color-snapchat); 
+            color: #000; /* Schwarzer Text für Lesbarkeit */
+        }
+        .btn-snapchat:hover { color: #000; }
+
+
+        /* Responsive Anpassung */
         @media (max-width: 480px) {
-            .container { padding: 25px; }
-            h1 { font-size: 1.5rem; }
-            .link-btn { font-size: 1rem; padding: 12px; }
+            .container { padding: 40px 20px; }
+            .profile-img { width: 110px; height: 110px; }
+            h1 { font-size: 1.7rem; }
+            .link-btn { font-size: 1rem; padding: 14px; }
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>@DeinName</h1>
-        <p class="bio">Hier findest du alle meine Kanäle.</p>
+        <div class="profile-header">
+            <img src="profilbild.png" alt="Profilbild" class="profile-img">
+            <h1>@DeinName</h1>
+            <p class="bio">Creator & Weltenbummler</p>
+        </div>
 
         <div class="links">
-            <a href="https://instagram.com/DEIN_USERNAME" class="link-btn" target="_blank">
+            <a href="https://instagram.com/DEIN_USERNAME" class="link-btn btn-instagram" target="_blank">
                 <i class="fab fa-instagram"></i> Instagram
             </a>
 
-            <a href="https://tiktok.com/@DEIN_USERNAME" class="link-btn" target="_blank">
+            <a href="https://tiktok.com/@DEIN_USERNAME" class="link-btn btn-tiktok" target="_blank">
                 <i class="fab fa-tiktok"></i> TikTok
             </a>
 
-            <a href="https://youtube.com/c/DEIN_KANAL" class="link-btn" target="_blank">
+            <a href="https://youtube.com/c/DEIN_KANAL" class="link-btn btn-youtube" target="_blank">
                 <i class="fab fa-youtube"></i> YouTube
             </a>
 
-            <a href="https://twitter.com/DEIN_USERNAME" class="link-btn" target="_blank">
+            <a href="https://twitter.com/DEIN_USERNAME" class="link-btn btn-twitter" target="_blank">
                 <i class="fab fa-x-twitter"></i> Twitter / X
             </a>
 
-            <a href="https://facebook.com/DEIN_PROFIL" class="link-btn" target="_blank">
+            <a href="https://facebook.com/DEIN_PROFIL" class="link-btn btn-facebook" target="_blank">
                 <i class="fab fa-facebook-f"></i> Facebook
             </a>
 
-            <a href="https://linkedin.com/in/DEIN_PROFIL" class="link-btn" target="_blank">
+            <a href="https://linkedin.com/in/DEIN_PROFIL" class="link-btn btn-linkedin" target="_blank">
                 <i class="fab fa-linkedin-in"></i> LinkedIn
             </a>
 
-            <a href="https://pinterest.com/DEIN_USERNAME" class="link-btn" target="_blank">
+            <a href="https://pinterest.com/DEIN_USERNAME" class="link-btn btn-pinterest" target="_blank">
                 <i class="fab fa-pinterest-p"></i> Pinterest
             </a>
 
-            <a href="DEIN_DISCORD_INVITE_LINK" class="link-btn" target="_blank">
+            <a href="DEIN_DISCORD_INVITE_LINK" class="link-btn btn-discord" target="_blank">
                 <i class="fab fa-discord"></i> Discord Server
             </a>
 
-            <a href="https://snapchat.com/add/DEIN_USERNAME" class="link-btn" target="_blank">
+            <a href="https://snapchat.com/add/DEIN_USERNAME" class="link-btn btn-snapchat" target="_blank">
                 <i class="fab fa-snapchat-ghost"></i> Snapchat
             </a>
 
-            <a href="https://twitch.tv/DEIN_KANAL" class="link-btn" target="_blank">
+            <a href="https://twitch.tv/DEIN_KANAL" class="link-btn btn-twitch" target="_blank">
                 <i class="fab fa-twitch"></i> Twitch
             </a>
 
-            <a href="https://deine-webseite.de" class="link-btn" target="_blank">
+            <a href="https://deine-webseite.de" class="link-btn btn-website" target="_blank">
                 <i class="fas fa-globe"></i> Meine Webseite
             </a>
         </div>
