@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meine Social Media Links</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --text-color: #333;
+            --accent-color: #000; /* Hauptfarbe der Buttons */
+            --hover-color: #333;
+            --btn-text-color: #fff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            text-align: center;
+            width: 100%;
+            max-width: 450px;
+            background: #fff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+
+        .profile-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #fff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        h1 { margin: 0 0 10px 0; font-size: 1.8rem; }
+        .bio { color: #666; margin-bottom: 30px; }
+
+        .links {
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* Abstand zwischen den Buttons */
+        }
+
+        .link-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--accent-color);
+            color: var(--btn-text-color);
+            text-decoration: none;
+            padding: 15px 20px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .link-btn:hover {
+            background-color: var(--hover-color);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Icon-Styling */
+        .link-btn i {
+            margin-right: 15px; /* Abstand zwischen Icon und Text */
+            font-size: 1.3rem;
+            width: 25px; /* Feste Breite für gleichmäßige Ausrichtung */
+            text-align: center;
+        }
+
+        /* Responsive Anpassung für Handys */
+        @media (max-width: 480px) {
+            .container { padding: 25px; }
+            h1 { font-size: 1.5rem; }
+            .link-btn { font-size: 1rem; padding: 12px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>@DeinName</h1>
+        <p class="bio">Hier findest du alle meine Kanäle.</p>
+
+        <div class="links">
+            <a href="https://instagram.com/DEIN_USERNAME" class="link-btn" target="_blank">
+                <i class="fab fa-instagram"></i> Instagram
+            </a>
+
+            <a href="https://tiktok.com/@DEIN_USERNAME" class="link-btn" target="_blank">
+                <i class="fab fa-tiktok"></i> TikTok
+            </a>
+
+            <a href="https://youtube.com/c/DEIN_KANAL" class="link-btn" target="_blank">
+                <i class="fab fa-youtube"></i> YouTube
+            </a>
+
+            <a href="https://twitter.com/DEIN_USERNAME" class="link-btn" target="_blank">
+                <i class="fab fa-x-twitter"></i> Twitter / X
+            </a>
+
+            <a href="https://facebook.com/DEIN_PROFIL" class="link-btn" target="_blank">
+                <i class="fab fa-facebook-f"></i> Facebook
+            </a>
+
+            <a href="https://linkedin.com/in/DEIN_PROFIL" class="link-btn" target="_blank">
+                <i class="fab fa-linkedin-in"></i> LinkedIn
+            </a>
+
+            <a href="https://pinterest.com/DEIN_USERNAME" class="link-btn" target="_blank">
+                <i class="fab fa-pinterest-p"></i> Pinterest
+            </a>
+
+            <a href="DEIN_DISCORD_INVITE_LINK" class="link-btn" target="_blank">
+                <i class="fab fa-discord"></i> Discord Server
+            </a>
+
+            <a href="https://snapchat.com/add/DEIN_USERNAME" class="link-btn" target="_blank">
+                <i class="fab fa-snapchat-ghost"></i> Snapchat
+            </a>
+
+            <a href="https://twitch.tv/DEIN_KANAL" class="link-btn" target="_blank">
+                <i class="fab fa-twitch"></i> Twitch
+            </a>
+
+            <a href="https://deine-webseite.de" class="link-btn" target="_blank">
+                <i class="fas fa-globe"></i> Meine Webseite
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>
