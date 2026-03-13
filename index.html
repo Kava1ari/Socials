@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meine Links | Social Bio</title>
+    <title>Meine Links | Kava1ari</title>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
@@ -24,6 +24,10 @@
             --color-discord: #5865F2;
         }
 
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
@@ -36,38 +40,66 @@
             padding: 40px 20px;
         }
 
-        .container {
-            text-align: center;
+        /* LAYOUT FÜR PC (Nebeneinander) */
+        .main-wrapper {
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+            justify-content: center;
             width: 100%;
-            max-width: 420px;
-            background: var(--container-bg);
-            padding: 60px 30px 40px 30px;
-            border-radius: 40px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            max-width: 1200px;
         }
 
-        /* BILD NOCH GRÖSSER */
+        /* Box 1: Links & Profil */
+        .links-container {
+            text-align: center;
+            width: 100%;
+            max-width: 460px;
+            background: var(--container-bg);
+            padding: 50px 30px 40px 30px;
+            border-radius: 40px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            flex: 1;
+        }
+
+        /* Box 2: Das Spiel */
+        .game-container {
+            width: 100%;
+            max-width: 600px;
+            background: var(--container-bg);
+            padding: 40px 30px;
+            border-radius: 40px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            text-align: center;
+            flex: 1.2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* PROFILBILD */
         .profile-header {
             margin-bottom: 40px;
         }
 
         .profile-img {
-            width: 400px; /* Von 130px auf 160px erhöht */
-            height: 400px;
+            width: 340px; /* Sehr groß, passt aber genau in die Box */
+            height: 340px;
             border-radius: 50%;
             object-fit: cover;
-            border: 6px solid #000000; /* Dickerer weißer Rahmen */
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2); /* Tieferer Schatten */
+            border: 6px solid #000000; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .profile-img:hover {
-            transform: scale(1.08) rotate(2deg);
+            transform: scale(1.05) rotate(2deg);
         }
 
         h1 { margin: 20px 0 5px 0; font-size: 2.2rem; font-weight: 800; letter-spacing: -1px; }
-        .bio { color: var(--bio-text-color); font-size: 1.1rem; margin-bottom: 0; font-weight: 500; }
+        .bio { color: var(--bio-text-color); font-size: 1.1rem; margin-bottom: 0; font-weight: 500; line-height: 1.5; }
 
+        /* LINKS */
         .links {
             display: flex;
             flex-direction: column;
@@ -109,170 +141,167 @@
         .btn-twitter { background-color: var(--color-twitter-x); }
         .btn-discord { background-color: var(--color-discord); }
 
-        @media (max-width: 480px) {
-            .profile-img { width: 140px; height: 140px; }
-            h1 { font-size: 1.8rem; }
+        /* Responsive: Handy & Tablet */
+        @media (max-width: 950px) {
+            .main-wrapper {
+                flex-direction: column;
+                align-items: center;
+            }
+            .profile-img { width: 250px; height: 250px; }
+            .game-container { padding: 30px 15px; }
+            #gameCanvas { width: 100% !important; height: auto !important; }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="profile-header">
-            <img src="Profilbild.png" alt="Profilbild" class="profile-img">
-            <h1>Kava1ari</h1>
-            <p class="bio">Hey, folgend sind meine vorhandenen Social-Media Kanäle <br>--Kava1ari--</p>
-        </div>
-
-        <div class="links">
-            <a href="https://twitch.tv/kava1ari" class="link-btn btn-twitch" target="_blank">
-                <i class="fab fa-twitch"></i> Twitch
-            </a>
-
-            <a href="https://www.youtube.com/channel/UC4V-PtJnd8RHbO6JhqjyIDw" class="link-btn btn-youtube" target="_blank">
-                <i class="fab fa-youtube"></i> YouTube
-            </a>
-
-            <a href="https://www.tiktok.com/@kava1ari" class="link-btn btn-tiktok" target="_blank">
-                <i class="fab fa-tiktok"></i> TikTok
-            </a>
-
-            <a href="https://instagram.com/kava1ari" class="link-btn btn-instagram" target="_blank">
-                <i class="fab fa-instagram"></i> Instagram
-            </a>
-
-            <a href="https://twitter.com/kava1ari" class="link-btn btn-twitter" target="_blank">
-                <i class="fab fa-x-twitter"></i> Twitter / X
-            </a>
-
-            <a href="DEIN_DISCORD_INVITE_LINK" class="link-btn btn-discord" target="_blank">
-                <i class="fab fa-discord"></i> Discord
-            </a>
-        </div>
-
-
-        <hr style="margin: 50px 0; border: 0; border-top: 1px solid #eee;">
-<h3 style="margin-bottom: 10px; font-weight: 800; font-size: 1.5rem;">Mini-Game: Escape the Twitch Bans!</h3>
-<p style="font-size: 1rem; color: #666; margin-bottom: 20px;">Highscore: <span id="highscore" style="font-weight: 700; color: #9146FF; font-size: 1.2rem;">0</span></p>
-
-<canvas id="gameCanvas" width="600" height="300" style="background: #f9f9f9; border-radius: 25px; border: 3px solid #eee; cursor: pointer; display: block; margin: 0 auto; box-shadow: 0 10px 30px rgba(0,0,0,0.08);"></canvas>
-
-<script>
-    const canvas = document.getElementById('gameCanvas');
-    const ctx = canvas.getContext('2d');
-    const highscoreDisplay = document.getElementById('highscore');
-    
-    // 1. Profilbild laden (Dein Charakter)
-    const playerImg = new Image();
-    playerImg.src = 'Profilbild.png'; // WICHTIG: Muss exakt so heißen!
-
-    // 2. Kombiniertes Twitch-Logo mit Bannhammer laden (Das Hindernis)
-    const banImg = new Image();
-    // Nutzt ein Icon, das Twitch-Logo und Hammer kombiniert
-    banImg.src = 'https://img.icons8.com/ios-filled/50/9146FF/twitch--v1.png'; // Twitch Logo
-    const hammerImg = new Image();
-    hammerImg.src = 'https://img.icons8.com/ios-filled/50/FF0000/gavel.png'; // Hammer
-
-    let score = 0;
-    let highscore = 0;
-    let gameActive = true;
-
-    // Spieler (Nutzt dein Profilbild)
-    const player = { x: 80, y: 220, width: 50, height: 50, dy: 0, jumpForce: 14, gravity: 0.7, grounded: false };
-    
-    // Hindernis (Kombination aus Twitch-Logo und Hammer)
-    const obstacle = { x: 650, y: 230, width: 40, height: 40, speed: 5 }; // Startgeschwindigkeit leicht reduziert
-
-    function draw() {
-        if (!gameActive) return;
-
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        // Boden zeichnen
-        ctx.fillStyle = "#e0e0e0";
-        ctx.fillRect(0, 270, canvas.width, 30); 
-
-        // Spieler zeichnen (Dein Profilbild)
-        if (playerImg.complete) {
-            ctx.drawImage(playerImg, player.x, player.y, player.width, player.height);
-        } else {
-            // Placeholder (Twitch-Farbe)
-            ctx.fillStyle = "#9146FF";
-            ctx.fillRect(player.x, player.y, player.width, player.height);
-        }
-
-        // Hindernis zeichnen (Twitch Logo + Bannhammer)
-        if (banImg.complete && hammerImg.complete) {
-            // Zeichne zuerst das Twitch-Logo
-            ctx.drawImage(banImg, obstacle.x, obstacle.y, obstacle.width, obstacle.height);
-            // Zeichne den Hammer leicht versetzt darüber
-            ctx.drawImage(hammerImg, obstacle.x + 10, obstacle.y - 10, obstacle.width - 10, obstacle.height - 10);
-        } else {
-            // Placeholder (Rot), falls Bilder nicht laden
-            ctx.fillStyle = "#FF0000";
-            ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
-        }
-
-        // Schwerkraft & Bewegung
-        player.y += player.dy;
-        if (player.y + player.height < 270) {
-            player.dy += player.gravity;
-            player.grounded = false;
-        } else {
-            player.y = 270 - player.height;
-            player.dy = 0;
-            player.grounded = true;
-        }
-
-        // Hindernis bewegen
-        obstacle.x -= obstacle.speed;
-        if (obstacle.x < -obstacle.width) {
-            // Random Startposition für mehr Abwechslung
-            obstacle.x = 650 + Math.random() * 200; 
-            score++;
-            if (score > highscore) {
-                highscore = score;
-                highscoreDisplay.innerText = highscore;
-            }
-            // Spiel wird LANGSAMER schneller
-            obstacle.speed += 0.05; // Deutlich reduzierte Beschleunigung
-        }
-
-        // Kollision prüfen
-        if (player.x < obstacle.x + obstacle.width &&
-            player.x + player.width > obstacle.x &&
-            player.y < obstacle.y + obstacle.height &&
-            player.y + player.height > obstacle.y) {
-            resetGame();
-        }
-
-        requestAnimationFrame(draw);
-    }
-
-    function resetGame() {
-        score = 0;
-        obstacle.x = 650;
-        obstacle.speed = 5; // Reset auf Startgeschwindigkeit
-    }
-
-    // Springen per Klick oder Touch
-    function jump() {
-        if (player.grounded) {
-            player.dy = -player.jumpForce;
-        }
-    }
-
-    canvas.addEventListener('mousedown', jump);
-    canvas.addEventListener('touchstart', (e) => {
-        e.preventDefault(); 
-        jump();
-    });
-
-    draw();
-</script>
-
-
+    <div class="main-wrapper">
         
+        <div class="links-container">
+            <div class="profile-header">
+                <img src="Profilbild.png" alt="Profilbild Kava1ari" class="profile-img">
+                <h1>Kava1ari</h1>
+                <p class="bio">Hey, folgend sind meine vorhandenen Social-Media Kanäle <br>--Kava1ari--</p>
+            </div>
+
+            <div class="links">
+                <a href="https://twitch.tv/kava1ari" class="link-btn btn-twitch" target="_blank">
+                    <i class="fab fa-twitch"></i> Twitch
+                </a>
+
+                <a href="https://www.youtube.com/channel/UC4V-PtJnd8RHbO6JhqjyIDw" class="link-btn btn-youtube" target="_blank">
+                    <i class="fab fa-youtube"></i> YouTube
+                </a>
+
+                <a href="https://www.tiktok.com/@kava1ari" class="link-btn btn-tiktok" target="_blank">
+                    <i class="fab fa-tiktok"></i> TikTok
+                </a>
+
+                <a href="https://instagram.com/kava1ari" class="link-btn btn-instagram" target="_blank">
+                    <i class="fab fa-instagram"></i> Instagram
+                </a>
+
+                <a href="https://twitter.com/kava1ari" class="link-btn btn-twitter" target="_blank">
+                    <i class="fab fa-x-twitter"></i> Twitter / X
+                </a>
+
+                <a href="DEIN_DISCORD_INVITE_LINK" class="link-btn btn-discord" target="_blank">
+                    <i class="fab fa-discord"></i> Discord
+                </a>
+            </div>
+        </div>
+
+        <div class="game-container">
+            <h3 style="margin: 0 0 10px 0; font-weight: 800; font-size: 1.6rem;">Escape the Banhammer!</h3>
+            <p style="font-size: 1rem; color: #666; margin-bottom: 20px;">Highscore: <span id="highscore" style="font-weight: 700; color: #9146FF; font-size: 1.3rem;">0</span></p>
+
+            <canvas id="gameCanvas" width="500" height="300" style="background: #f9f9f9; border-radius: 20px; border: 3px solid #eee; cursor: pointer; box-shadow: inset 0 5px 15px rgba(0,0,0,0.05);"></canvas>
+
+            <script>
+                const canvas = document.getElementById('gameCanvas');
+                const ctx = canvas.getContext('2d');
+                const highscoreDisplay = document.getElementById('highscore');
+                
+                // 1. Profilbild laden (Dein Charakter)
+                const playerImg = new Image();
+                playerImg.src = 'Profilbild.png'; // WICHTIG: Muss exakt so heißen!
+
+                // 2. Bannhammer laden (Dein Hindernis)
+                const obstacleImg = new Image();
+                obstacleImg.src = 'Bannhammer.png'; // WICHTIG: Muss im Github exakt so heißen!
+
+                let score = 0;
+                let highscore = 0;
+                let gameActive = true;
+
+                // Spieler & Hindernis Werte
+                const player = { x: 50, y: 220, width: 50, height: 50, dy: 0, jumpForce: 13.5, gravity: 0.7, grounded: false };
+                const obstacle = { x: 550, y: 220, width: 50, height: 50, speed: 4.5 };
+
+                function draw() {
+                    if (!gameActive) return;
+
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                    // Boden zeichnen
+                    ctx.fillStyle = "#e0e0e0";
+                    ctx.fillRect(0, 270, canvas.width, 30); 
+
+                    // Spieler (Profilbild) zeichnen
+                    if (playerImg.complete && playerImg.naturalWidth !== 0) {
+                        ctx.drawImage(playerImg, player.x, player.y, player.width, player.height);
+                    } else {
+                        // Platzhalter, falls Bild noch lädt
+                        ctx.fillStyle = "#9146FF";
+                        ctx.fillRect(player.x, player.y, player.width, player.height);
+                    }
+
+                    // Hindernis (Bannhammer) zeichnen
+                    if (obstacleImg.complete && obstacleImg.naturalWidth !== 0) {
+                        ctx.drawImage(obstacleImg, obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+                    } else {
+                        // Platzhalter (Rot), falls Bannhammer-Bild noch lädt
+                        ctx.fillStyle = "#FF0000";
+                        ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+                    }
+
+                    // Schwerkraft & Sprunglogik
+                    player.y += player.dy;
+                    if (player.y + player.height < 270) {
+                        player.dy += player.gravity;
+                        player.grounded = false;
+                    } else {
+                        player.y = 270 - player.height;
+                        player.dy = 0;
+                        player.grounded = true;
+                    }
+
+                    // Hindernis bewegen
+                    obstacle.x -= obstacle.speed;
+                    if (obstacle.x < -obstacle.width) {
+                        obstacle.x = canvas.width + Math.random() * 150; 
+                        score++;
+                        if (score > highscore) {
+                            highscore = score;
+                            highscoreDisplay.innerText = highscore;
+                        }
+                        // Langsame Beschleunigung
+                        obstacle.speed += 0.05; 
+                    }
+
+                    // Kollision prüfen (Wenn du vom Hammer erwischt wirst)
+                    // Die "- 10" machen die Hitbox etwas kleiner, damit es fairer ist
+                    if (player.x < obstacle.x + obstacle.width - 10 &&
+                        player.x + player.width - 10 > obstacle.x &&
+                        player.y < obstacle.y + obstacle.height - 10 &&
+                        player.y + player.height - 10 > obstacle.y) {
+                        
+                        // Game Over: Reset Game
+                        score = 0;
+                        obstacle.x = canvas.width + 50;
+                        obstacle.speed = 4.5;
+                    }
+
+                    requestAnimationFrame(draw);
+                }
+
+                function jump() {
+                    if (player.grounded) {
+                        player.dy = -player.jumpForce;
+                    }
+                }
+
+                // Steuerung
+                canvas.addEventListener('mousedown', jump);
+                canvas.addEventListener('touchstart', (e) => {
+                    e.preventDefault(); 
+                    jump();
+                }, {passive: false});
+
+                // Spiel-Schleife starten
+                draw();
+            </script>
+        </div>
     </div>
 
 </body>
