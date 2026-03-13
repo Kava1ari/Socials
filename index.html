@@ -149,11 +149,13 @@
                 <i class="fab fa-discord"></i> Discord
             </a>
         </div>
+
+
         <hr style="margin: 50px 0; border: 0; border-top: 1px solid #eee;">
 <h3 style="margin-bottom: 10px; font-weight: 800; font-size: 1.5rem;">Mini-Game: Escape the Twitch Bans!</h3>
 <p style="font-size: 1rem; color: #666; margin-bottom: 20px;">Highscore: <span id="highscore" style="font-weight: 700; color: #9146FF; font-size: 1.2rem;">0</span></p>
 
-<canvas id="gameCanvas" width="400" height="300" style="background: #f9f9f9; border-radius: 25px; border: 3px solid #eee; cursor: pointer; display: block; margin: 0 auto; box-shadow: 0 10px 30px rgba(0,0,0,0.08);"></canvas>
+<canvas id="gameCanvas" width="600" height="300" style="background: #f9f9f9; border-radius: 25px; border: 3px solid #eee; cursor: pointer; display: block; margin: 0 auto; box-shadow: 0 10px 30px rgba(0,0,0,0.08);"></canvas>
 
 <script>
     const canvas = document.getElementById('gameCanvas');
@@ -162,23 +164,24 @@
     
     // 1. Profilbild laden (Dein Charakter)
     const playerImg = new Image();
-    playerImg.src = 'Profilbild.png'; // Muss exakt so heißen!
+    playerImg.src = 'Profilbild.png'; // WICHTIG: Muss exakt so heißen!
 
-    // 2. Twitch-Bann-Icon laden (Das Hindernis)
+    // 2. Kombiniertes Twitch-Logo mit Bannhammer laden (Das Hindernis)
     const banImg = new Image();
-    // Nutzt das offizielle Twitch-Bann-Symbol
-    banImg.src = 'https://static-cdn.jtvnw.net/emoticons/v2/304332999/default/dark/3.0'; 
+    // Nutzt ein Icon, das Twitch-Logo und Hammer kombiniert
+    banImg.src = 'https://img.icons8.com/ios-filled/50/9146FF/twitch--v1.png'; // Twitch Logo
+    const hammerImg = new Image();
+    hammerImg.src = 'https://img.icons8.com/ios-filled/50/FF0000/gavel.png'; // Hammer
 
     let score = 0;
     let highscore = 0;
     let gameActive = true;
 
     // Spieler (Nutzt dein Profilbild)
-    // Werte für das größere Feld angepasst
-    const player = { x: 60, y: 220, width: 50, height: 50, dy: 0, jumpForce: 14, gravity: 0.7, grounded: false };
+    const player = { x: 80, y: 220, width: 50, height: 50, dy: 0, jumpForce: 14, gravity: 0.7, grounded: false };
     
-    // Hindernis (Nutzt das Bann-Icon)
-    const obstacle = { x: 450, y: 230, width: 40, height: 40, speed: 6 };
+    // Hindernis (Kombination aus Twitch-Logo und Hammer)
+    const obstacle = { x: 650, y: 230, width: 40, height: 40, speed: 5 }; // Startgeschwindigkeit leicht reduziert
 
     function draw() {
         if (!gameActive) return;
@@ -187,7 +190,7 @@
 
         // Boden zeichnen
         ctx.fillStyle = "#e0e0e0";
-        ctx.fillRect(0, 270, canvas.width, 30); // Dickerer Boden
+        ctx.fillRect(0, 270, canvas.width, 30); 
 
         // Spieler zeichnen (Dein Profilbild)
         if (playerImg.complete) {
@@ -198,11 +201,14 @@
             ctx.fillRect(player.x, player.y, player.width, player.height);
         }
 
-        // Hindernis zeichnen (Twitch Bann Icon)
-        if (banImg.complete) {
+        // Hindernis zeichnen (Twitch Logo + Bannhammer)
+        if (banImg.complete && hammerImg.complete) {
+            // Zeichne zuerst das Twitch-Logo
             ctx.drawImage(banImg, obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+            // Zeichne den Hammer leicht versetzt darüber
+            ctx.drawImage(hammerImg, obstacle.x + 10, obstacle.y - 10, obstacle.width - 10, obstacle.height - 10);
         } else {
-            // Placeholder (Rot), falls Bild nicht lädt
+            // Placeholder (Rot), falls Bilder nicht laden
             ctx.fillStyle = "#FF0000";
             ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
         }
@@ -222,14 +228,14 @@
         obstacle.x -= obstacle.speed;
         if (obstacle.x < -obstacle.width) {
             // Random Startposition für mehr Abwechslung
-            obstacle.x = 450 + Math.random() * 150; 
+            obstacle.x = 650 + Math.random() * 200; 
             score++;
             if (score > highscore) {
                 highscore = score;
                 highscoreDisplay.innerText = highscore;
             }
-            // Spiel wird langsam schneller
-            obstacle.speed += 0.2;
+            // Spiel wird LANGSAMER schneller
+            obstacle.speed += 0.05; // Deutlich reduzierte Beschleunigung
         }
 
         // Kollision prüfen
@@ -245,8 +251,8 @@
 
     function resetGame() {
         score = 0;
-        obstacle.x = 450;
-        obstacle.speed = 6;
+        obstacle.x = 650;
+        obstacle.speed = 5; // Reset auf Startgeschwindigkeit
     }
 
     // Springen per Klick oder Touch
@@ -258,12 +264,15 @@
 
     canvas.addEventListener('mousedown', jump);
     canvas.addEventListener('touchstart', (e) => {
-        e.preventDefault(); // Verhindert Scrollen beim Tippen
+        e.preventDefault(); 
         jump();
     });
 
     draw();
 </script>
+
+
+        
     </div>
 
 </body>
