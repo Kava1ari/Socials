@@ -9,12 +9,9 @@
     
     <style>
         :root {
-            /* Hintergrundfarbe (wird durch das Bild überlagert, dient als Fallback) */
             --bg-color: #f0f4f8; 
             --text-color: #1a1a1a;
             --bio-text-color: #555;
-            
-            /* Boxen-Hintergrund: Leicht transparentes Weiß für Glas-Effekt */
             --container-bg: rgba(255, 255, 255, 0.92); 
             --btn-text-color: #ffffff;
             
@@ -40,33 +37,26 @@
             align-items: center;
             min-height: 100vh;
             color: var(--text-color);
-            position: relative; /* Wichtig für das Hintergrundbild-Overlay */
-            overflow-x: hidden; /* Verhindert horizontales Scrollen */
+            position: relative; 
+            overflow-x: hidden; 
         }
 
-        /* --- CSS FÜR DAS HINTERGRUNDBILD --- */
+        /* Hintergrundbild */
         body::before {
             content: "";
-            position: fixed; /* Fixiert das Bild beim Scrollen */
+            position: fixed; 
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            
-            /* DEINE DATEI: Hintergrund.jpg */
             background-image: url('Hintergrund.jpg'); 
-            
-            background-size: cover; /* Bild bedeckt den ganzen Bildschirm */
-            background-position: center; /* Bild zentrieren */
+            background-size: cover; 
+            background-position: center; 
             background-repeat: no-repeat;
-            
-            /* TRANSPARENZ DES BILDES (0.0 = unsichtbar, 1.0 = voll sichtbar) */
-            opacity: 0.3; /* "Ein wenig transparent" = 30% Sichtbarkeit */
-            
-            z-index: -1; /* Legt das Bild HINTER den Inhalt */
+            opacity: 0.3; 
+            z-index: -1; 
         }
 
-        /* Haupt-Inhaltsbereich */
         .page-content {
             display: flex;
             justify-content: center;
@@ -74,29 +64,28 @@
             width: 100%;
             min-height: 100vh;
             padding: 40px 20px;
-            z-index: 1; /* Legt den Inhalt VOR das Hintergrundbild */
+            z-index: 1; 
         }
 
-        /* LAYOUT FÜR PC (Nebeneinander) */
+        /* LAYOUT FÜR PC */
         .main-wrapper {
             display: flex;
             gap: 40px;
             align-items: flex-start;
             justify-content: center;
             width: 100%;
-            max-width: 1200px;
+            max-width: 1300px; /* Etwas breiter für das neue Spielfeld */
         }
 
-        /* Allgemeine Boxen-Styling (mit Glas-Effekt) */
         .links-container, .game-container {
             background: var(--container-bg);
             border-radius: 40px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.15);
-            backdrop-filter: blur(5px); /* Leichter Unschärfe-Effekt hinter den Boxen */
-            border: 1px solid rgba(255,255,255,0.3); /* Subtiler Rahmen für Glas-Look */
+            backdrop-filter: blur(5px); 
+            border: 1px solid rgba(255,255,255,0.3); 
         }
 
-        /* Box 1: Links & Profil */
+        /* Box 1: Links */
         .links-container {
             text-align: center;
             width: 100%;
@@ -108,20 +97,17 @@
         /* Box 2: Das Spiel */
         .game-container {
             width: 100%;
-            max-width: 600px;
+            max-width: 700px; /* Breiterer Container für das Spiel */
             padding: 40px 30px;
             text-align: center;
-            flex: 1.2;
+            flex: 1.4;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
         /* PROFILBILD */
-        .profile-header {
-            margin-bottom: 40px;
-        }
-
+        .profile-header { margin-bottom: 40px; }
         .profile-img {
             width: 340px; 
             height: 340px;
@@ -131,21 +117,13 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-
-        .profile-img:hover {
-            transform: scale(1.05) rotate(2deg);
-        }
+        .profile-img:hover { transform: scale(1.05) rotate(2deg); }
 
         h1 { margin: 20px 0 5px 0; font-size: 2.2rem; font-weight: 800; letter-spacing: -1px; }
         .bio { color: var(--bio-text-color); font-size: 1.1rem; margin-bottom: 0; font-weight: 500; line-height: 1.5; }
 
         /* LINKS */
-        .links {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
-
+        .links { display: flex; flex-direction: column; gap: 14px; }
         .link-btn {
             display: flex;
             align-items: center;
@@ -160,18 +138,8 @@
             position: relative;
             overflow: hidden;
         }
-
-        .link-btn:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-        }
-
-        .link-btn i {
-            margin-right: 15px;
-            font-size: 1.5rem;
-            width: 30px;
-            text-align: center;
-        }
+        .link-btn:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+        .link-btn i { margin-right: 15px; font-size: 1.5rem; width: 30px; text-align: center; }
 
         /* Button Farben */
         .btn-twitch { background-color: var(--color-twitch); }
@@ -185,7 +153,7 @@
         .canvas-wrapper {
             position: relative;
             width: 100%;
-            max-width: 500px;
+            max-width: 600px; /* Größeres Spielfeld */
             margin: 0 auto;
             border-radius: 20px;
             overflow: hidden;
@@ -231,26 +199,13 @@
             box-shadow: 0 5px 15px rgba(145, 70, 255, 0.4);
         }
 
-        .play-btn:hover {
-            transform: scale(1.05);
-            background-color: #7a38e0;
-        }
-
-        #overlayTitle {
-            margin: 0 0 15px 0;
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: #1a1a1a;
-        }
+        .play-btn:hover { transform: scale(1.05); background-color: #7a38e0; }
+        #overlayTitle { margin: 0 0 15px 0; font-size: 1.8rem; font-weight: 800; color: #1a1a1a; }
 
         /* Responsive: Handy & Tablet */
         @media (max-width: 950px) {
             .page-content { padding: 20px 10px; }
-            .main-wrapper {
-                flex-direction: column;
-                align-items: center;
-                gap: 20px;
-            }
+            .main-wrapper { flex-direction: column; align-items: center; gap: 20px; }
             .profile-img { width: 250px; height: 250px; }
             .game-container { padding: 30px 15px; }
             .canvas-wrapper { width: 100%; }
@@ -260,7 +215,6 @@
 <body>
 
     <div class="page-content">
-        
         <div class="main-wrapper">
             
             <div class="links-container">
@@ -274,23 +228,18 @@
                     <a href="https://twitch.tv/kava1ari" class="link-btn btn-twitch" target="_blank">
                         <i class="fab fa-twitch"></i> Twitch
                     </a>
-
                     <a href="https://www.youtube.com/channel/UC4V-PtJnd8RHbO6JhqjyIDw" class="link-btn btn-youtube" target="_blank">
                         <i class="fab fa-youtube"></i> YouTube
                     </a>
-
                     <a href="https://www.tiktok.com/@kava1ari" class="link-btn btn-tiktok" target="_blank">
                         <i class="fab fa-tiktok"></i> TikTok
                     </a>
-
                     <a href="https://instagram.com/kava1ari" class="link-btn btn-instagram" target="_blank">
                         <i class="fab fa-instagram"></i> Instagram
                     </a>
-
                     <a href="https://twitter.com/kava1ari" class="link-btn btn-twitter" target="_blank">
                         <i class="fab fa-x-twitter"></i> Twitter / X
                     </a>
-
                     <a href="DEIN_DISCORD_INVITE_LINK" class="link-btn btn-discord" target="_blank">
                         <i class="fab fa-discord"></i> Discord
                     </a>
@@ -302,14 +251,12 @@
                 <p style="font-size: 1rem; color: #666; margin-bottom: 20px;">Highscore: <span id="highscore" style="font-weight: 700; color: #9146FF; font-size: 1.3rem;">0</span></p>
 
                 <div class="canvas-wrapper">
-                    
                     <div id="gameOverlay" class="game-overlay">
                         <h2 id="overlayTitle">Bereit?</h2>
                         <button id="playBtn" class="play-btn"><i class="fas fa-play"></i> Start</button>
                     </div>
 
-                    <canvas id="gameCanvas" width="500" height="300"></canvas>
-
+                    <canvas id="gameCanvas" width="600" height="400"></canvas>
                 </div>
 
                 <script>
@@ -320,28 +267,30 @@
                     const playBtn = document.getElementById('playBtn');
                     const overlayTitle = document.getElementById('overlayTitle');
                     
-                    // Bilder laden
                     const playerImg = new Image();
                     playerImg.src = 'Profilbild.png'; 
 
                     const obstacleImg = new Image();
-                    // DEINE DATEI: Bannhammer.jpg
-                    obstacleImg.src = 'Bannhammer.jpg'; 
+                    // DEINE DATEI: Bannhammer.png (Endung korrigiert!)
+                    obstacleImg.src = 'Bannhammer.png'; 
 
                     let score = 0;
                     let highscore = 0;
                     let isPlaying = false; 
 
-                    // --- SYMBOLE VERGRÖSSERT (50 * 1.7 = 85) ---
-                    // Y-Werte angepasst, damit sie auf dem Boden (270) aufsitzen
-                    const player = { x: 50, y: 185, width: 85, height: 85, dy: 0, jumpForce: 13.5, gravity: 0.7, grounded: false };
-                    const obstacle = { x: 550, y: 185, width: 85, height: 85, speed: 4.5 };
+                    // --- ANGEPASSTE PHYSIK FÜR DAS GRÖSSERE FELD ---
+                    // y: 265 (damit sie auf dem tieferen Boden stehen)
+                    // jumpForce: 16 (stärkerer Sprung für die großen Symbole)
+                    // gravity: 0.8 (damit man nicht ewig in der Luft hängt)
+                    const player = { x: 50, y: 265, width: 85, height: 85, dy: 0, jumpForce: 16, gravity: 0.8, grounded: false };
+                    const obstacle = { x: 650, y: 265, width: 85, height: 85, speed: 5 };
 
                     function draw() {
                         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+                        // Neuer, tieferer Boden (y=350 statt y=270)
                         ctx.fillStyle = "#e0e0e0";
-                        ctx.fillRect(0, 270, canvas.width, 30); 
+                        ctx.fillRect(0, 350, canvas.width, 50); 
 
                         if (playerImg.complete && playerImg.naturalWidth !== 0) {
                             ctx.drawImage(playerImg, player.x, player.y, player.width, player.height);
@@ -359,19 +308,20 @@
 
                         if (isPlaying) {
                             player.y += player.dy;
-                            // Bodenkante liegt bei 270
-                            if (player.y + player.height < 270) {
+                            
+                            // Boden-Kollision angepasst auf y=350
+                            if (player.y + player.height < 350) {
                                 player.dy += player.gravity;
                                 player.grounded = false;
                             } else {
-                                player.y = 270 - player.height;
+                                player.y = 350 - player.height;
                                 player.dy = 0;
                                 player.grounded = true;
                             }
 
                             obstacle.x -= obstacle.speed;
                             if (obstacle.x < -obstacle.width) {
-                                obstacle.x = canvas.width + Math.random() * 150; 
+                                obstacle.x = canvas.width + Math.random() * 200; 
                                 score++;
                                 if (score > highscore) {
                                     highscore = score;
@@ -381,7 +331,6 @@
                             }
 
                             // Kollision prüfen
-                            // Hitbox-Toleranz leicht angepasst für die neue Größe
                             if (player.x < obstacle.x + obstacle.width - 15 &&
                                 player.x + player.width - 15 > obstacle.x &&
                                 player.y < obstacle.y + obstacle.height - 15 &&
@@ -402,8 +351,8 @@
                     playBtn.addEventListener('click', () => {
                         score = 0;
                         obstacle.x = canvas.width + 50;
-                        obstacle.speed = 4.5;
-                        player.y = 270 - player.height;
+                        obstacle.speed = 5;
+                        player.y = 350 - player.height;
                         player.dy = 0;
                         
                         gameOverlay.style.display = 'none';
@@ -429,5 +378,7 @@
             </div>
         </div>
 
-    </div> </body>
+    </div> 
+
+</body>
 </html>
