@@ -149,6 +149,109 @@
                 <i class="fab fa-discord"></i> Discord
             </a>
         </div>
+        <hr style="margin: 40px 0; border: 0; border-top: 1px solid #eee;">
+<h3 style="margin-bottom: 10px; font-weight: 800;">Mini-Game: Jump over the Red Square!</h3>
+<p style="font-size: 0.9rem; color: #666; margin-bottom: 15px;">Highscore: <span id="highscore" style="font-weight: 700; color: #9146FF;">0</span></p>
+<canvas id="gameCanvas" width="320" height="180" style="background: #f9f9f9; border-radius: 20px; border: 2px solid #eee; cursor: pointer; display: block; margin: 0 auto; shadow: 0 5px 15px rgba(0,0,0,0.05);"></canvas>
+
+<script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    const highscoreDisplay = document.getElementById('highscore');
+    
+    // Profilbild laden
+    const playerImg = new Image();
+    playerImg.src = 'Profilbild.png'; // WICHTIG: Muss exakt so heißen!
+
+    let score = 0;
+    let highscore = 0;
+    let gameActive = true;
+    let isJumping = false;
+
+    // Spieler (Nutzt dein Profilbild)
+    const player = { x: 50, y: 130, width: 40, height: 40, dy: 0, jumpForce: 10, gravity: 0.6, grounded: false };
+    
+    // Hindernis
+    const obstacle = { x: 380, y: 140, width: 25, height: 25, speed: 5, color: '#FF0000' };
+
+    function draw() {
+        if (!gameActive) return;
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Boden zeichnen
+        ctx.fillStyle = "#e0e0e0";
+        ctx.fillRect(0, 170, canvas.width, 10);
+
+        // Spieler zeichnen (Dein Profilbild)
+        if (playerImg.complete) {
+            ctx.drawImage(playerImg, player.x, player.y, player.width, player.height);
+        } else {
+            // Placeholder, falls Bild nicht lädt (Nutzt Twitch-Farbe)
+            ctx.fillStyle = "#9146FF";
+            ctx.fillRect(player.x, player.y, player.width, player.height);
+        }
+
+        // Hindernis zeichnen
+        ctx.fillStyle = obstacle.color;
+        ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+
+        // Schwerkraft & Bewegung
+        player.y += player.dy;
+        if (player.y + player.height < 170) {
+            player.dy += player.gravity;
+            player.grounded = false;
+        } else {
+            player.y = 170 - player.height;
+            player.dy = 0;
+            player.grounded = true;
+        }
+
+        // Hindernis bewegen
+        obstacle.x -= obstacle.speed;
+        if (obstacle.x < -obstacle.width) {
+            obstacle.x = 380 + Math.random() * 100; // Random Startposition
+            score++;
+            if (score > highscore) {
+                highscore = score;
+                highscoreDisplay.innerText = highscore;
+            }
+            // Spiel wird langsam schneller
+            obstacle.speed += 0.15;
+        }
+
+        // Kollision prüfen
+        if (player.x < obstacle.x + obstacle.width &&
+            player.x + player.width > obstacle.x &&
+            player.y < obstacle.y + obstacle.height &&
+            player.y + player.height > obstacle.y) {
+            resetGame();
+        }
+
+        requestAnimationFrame(draw);
+    }
+
+    function resetGame() {
+        score = 0;
+        obstacle.x = 380;
+        obstacle.speed = 5;
+    }
+
+    // Springen per Klick oder Touch
+    function jump() {
+        if (player.grounded) {
+            player.dy = -player.jumpForce;
+        }
+    }
+
+    canvas.addEventListener('mousedown', jump);
+    canvas.addEventListener('touchstart', (e) => {
+        e.preventDefault(); // Verhindert Scrollen beim Tippen
+        jump();
+    });
+
+    draw();
+</script>
     </div>
 
 </body>
