@@ -15,14 +15,13 @@
             --container-bg: #ffffff;
             --btn-text-color: #ffffff;
             
-            /* Social Media Markenfarben */
-            --color-instagram: #E1306C;
-            --color-tiktok: #000000;
-            --color-youtube: #FF0000;
-            --color-twitter-x: #000000;
-            --color-linkedin: #0077B5;
-            --color-discord: #5865F2;
+            /* Markenfarben */
             --color-twitch: #9146FF;
+            --color-youtube: #FF0000;
+            --color-tiktok: #000000;
+            --color-instagram: #E1306C;
+            --color-twitter-x: #000000;
+            --color-discord: #5865F2;
         }
 
         body {
@@ -34,7 +33,7 @@
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            padding: 20px;
+            padding: 40px 20px;
         }
 
         .container {
@@ -42,38 +41,37 @@
             width: 100%;
             max-width: 420px;
             background: var(--container-bg);
-            padding: 50px 30px;
-            border-radius: 30px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
-            position: relative;
+            padding: 60px 30px 40px 30px;
+            border-radius: 40px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
         }
 
+        /* BILD NOCH GRÖSSER */
         .profile-header {
-            margin-bottom: 35px;
-            position: relative;
+            margin-bottom: 40px;
         }
 
         .profile-img {
-            width: 130px;
-            height: 130px;
+            width: 160px; /* Von 130px auf 160px erhöht */
+            height: 160px;
             border-radius: 50%;
             object-fit: cover;
-            border: 5px solid #fff;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-            transition: transform 0.3s ease;
+            border: 6px solid #fff; /* Dickerer weißer Rahmen */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2); /* Tieferer Schatten */
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .profile-img:hover {
-            transform: scale(1.05) rotate(3deg);
+            transform: scale(1.08) rotate(2deg);
         }
 
-        h1 { margin: 15px 0 5px 0; font-size: 2rem; font-weight: 800; letter-spacing: -0.5px; }
-        .bio { color: var(--bio-text-color); font-size: 1.1rem; margin-bottom: 0; font-weight: 400; }
+        h1 { margin: 20px 0 5px 0; font-size: 2.2rem; font-weight: 800; letter-spacing: -1px; }
+        .bio { color: var(--bio-text-color); font-size: 1.1rem; margin-bottom: 0; font-weight: 500; }
 
         .links {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 14px;
         }
 
         .link-btn {
@@ -82,52 +80,38 @@
             justify-content: center;
             color: var(--btn-text-color);
             text-decoration: none;
-            padding: 16px 20px;
-            border-radius: 15px;
+            padding: 18px 20px;
+            border-radius: 18px;
             font-size: 1.1rem;
             font-weight: 600;
-            transition: all 0.25s ease-in-out;
-            border: none;
+            transition: all 0.25s ease;
             position: relative;
             overflow: hidden;
         }
 
         .link-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
         }
-
-        .link-btn::after {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: 0.5s;
-        }
-        .link-btn:hover::after { left: 100%; }
 
         .link-btn i {
             margin-right: 15px;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             width: 30px;
             text-align: center;
         }
 
-        /* Farben der verbleibenden Buttons */
-        .btn-instagram { background-color: var(--color-instagram); }
-        .btn-tiktok { background-color: var(--color-tiktok); }
-        .btn-youtube { background-color: var(--color-youtube); }
-        .btn-twitter { background-color: var(--color-twitter-x); }
-        .btn-linkedin { background-color: var(--color-linkedin); }
-        .btn-discord { background-color: var(--color-discord); }
+        /* Button Farben */
         .btn-twitch { background-color: var(--color-twitch); }
+        .btn-youtube { background-color: var(--color-youtube); }
+        .btn-tiktok { background-color: var(--color-tiktok); }
+        .btn-instagram { background-color: var(--color-instagram); }
+        .btn-twitter { background-color: var(--color-twitter-x); }
+        .btn-discord { background-color: var(--color-discord); }
 
         @media (max-width: 480px) {
-            .container { padding: 40px 20px; }
-            .profile-img { width: 110px; height: 110px; }
-            h1 { font-size: 1.7rem; }
-            .link-btn { font-size: 1rem; padding: 14px; }
+            .profile-img { width: 140px; height: 140px; }
+            h1 { font-size: 1.8rem; }
         }
     </style>
 </head>
@@ -137,36 +121,32 @@
         <div class="profile-header">
             <img src="Profilbild.png" alt="Profilbild" class="profile-img">
             <h1>@DeinName</h1>
-            <p class="bio">Dein Slogan hier</p>
+            <p class="bio">Dein Slogan oder deine Bio</p>
         </div>
 
         <div class="links">
-            <a href="https://instagram.com/DEIN_USERNAME" class="link-btn btn-instagram" target="_blank">
-                <i class="fab fa-instagram"></i> Instagram
-            </a>
-
-            <a href="https://tiktok.com/@DEIN_USERNAME" class="link-btn btn-tiktok" target="_blank">
-                <i class="fab fa-tiktok"></i> TikTok
+            <a href="https://twitch.tv/DEIN_KANAL" class="link-btn btn-twitch" target="_blank">
+                <i class="fab fa-twitch"></i> Twitch
             </a>
 
             <a href="https://youtube.com/c/DEIN_KANAL" class="link-btn btn-youtube" target="_blank">
                 <i class="fab fa-youtube"></i> YouTube
             </a>
 
+            <a href="https://tiktok.com/@DEIN_USERNAME" class="link-btn btn-tiktok" target="_blank">
+                <i class="fab fa-tiktok"></i> TikTok
+            </a>
+
+            <a href="https://instagram.com/DEIN_USERNAME" class="link-btn btn-instagram" target="_blank">
+                <i class="fab fa-instagram"></i> Instagram
+            </a>
+
             <a href="https://twitter.com/DEIN_USERNAME" class="link-btn btn-twitter" target="_blank">
                 <i class="fab fa-x-twitter"></i> Twitter / X
             </a>
 
-            <a href="https://linkedin.com/in/DEIN_PROFIL" class="link-btn btn-linkedin" target="_blank">
-                <i class="fab fa-linkedin-in"></i> LinkedIn
-            </a>
-
             <a href="DEIN_DISCORD_INVITE_LINK" class="link-btn btn-discord" target="_blank">
-                <i class="fab fa-discord"></i> Discord Server
-            </a>
-
-            <a href="https://twitch.tv/DEIN_KANAL" class="link-btn btn-twitch" target="_blank">
-                <i class="fab fa-twitch"></i> Twitch
+                <i class="fab fa-discord"></i> Discord
             </a>
         </div>
     </div>
