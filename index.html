@@ -332,8 +332,10 @@
                     let highscore = 0;
                     let isPlaying = false; 
 
-                    const player = { x: 50, y: 220, width: 50, height: 50, dy: 0, jumpForce: 13.5, gravity: 0.7, grounded: false };
-                    const obstacle = { x: 550, y: 220, width: 50, height: 50, speed: 4.5 };
+                    // --- SYMBOLE VERGRÖSSERT (50 * 1.7 = 85) ---
+                    // Y-Werte angepasst, damit sie auf dem Boden (270) aufsitzen
+                    const player = { x: 50, y: 185, width: 85, height: 85, dy: 0, jumpForce: 13.5, gravity: 0.7, grounded: false };
+                    const obstacle = { x: 550, y: 185, width: 85, height: 85, speed: 4.5 };
 
                     function draw() {
                         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -357,6 +359,7 @@
 
                         if (isPlaying) {
                             player.y += player.dy;
+                            // Bodenkante liegt bei 270
                             if (player.y + player.height < 270) {
                                 player.dy += player.gravity;
                                 player.grounded = false;
@@ -377,10 +380,12 @@
                                 obstacle.speed += 0.05; 
                             }
 
-                            if (player.x < obstacle.x + obstacle.width - 10 &&
-                                player.x + player.width - 10 > obstacle.x &&
-                                player.y < obstacle.y + obstacle.height - 10 &&
-                                player.y + player.height - 10 > obstacle.y) {
+                            // Kollision prüfen
+                            // Hitbox-Toleranz leicht angepasst für die neue Größe
+                            if (player.x < obstacle.x + obstacle.width - 15 &&
+                                player.x + player.width - 15 > obstacle.x &&
+                                player.y < obstacle.y + obstacle.height - 15 &&
+                                player.y + player.height - 15 > obstacle.y) {
                                 
                                 isPlaying = false;
                                 
