@@ -149,30 +149,36 @@
                 <i class="fab fa-discord"></i> Discord
             </a>
         </div>
-        <hr style="margin: 40px 0; border: 0; border-top: 1px solid #eee;">
-<h3 style="margin-bottom: 10px; font-weight: 800;">Mini-Game: Jump over the Red Square!</h3>
-<p style="font-size: 0.9rem; color: #666; margin-bottom: 15px;">Highscore: <span id="highscore" style="font-weight: 700; color: #9146FF;">0</span></p>
-<canvas id="gameCanvas" width="320" height="180" style="background: #f9f9f9; border-radius: 20px; border: 2px solid #eee; cursor: pointer; display: block; margin: 0 auto; shadow: 0 5px 15px rgba(0,0,0,0.05);"></canvas>
+        <hr style="margin: 50px 0; border: 0; border-top: 1px solid #eee;">
+<h3 style="margin-bottom: 10px; font-weight: 800; font-size: 1.5rem;">Mini-Game: Escape the Twitch Bans!</h3>
+<p style="font-size: 1rem; color: #666; margin-bottom: 20px;">Highscore: <span id="highscore" style="font-weight: 700; color: #9146FF; font-size: 1.2rem;">0</span></p>
+
+<canvas id="gameCanvas" width="400" height="300" style="background: #f9f9f9; border-radius: 25px; border: 3px solid #eee; cursor: pointer; display: block; margin: 0 auto; box-shadow: 0 10px 30px rgba(0,0,0,0.08);"></canvas>
 
 <script>
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
     const highscoreDisplay = document.getElementById('highscore');
     
-    // Profilbild laden
+    // 1. Profilbild laden (Dein Charakter)
     const playerImg = new Image();
-    playerImg.src = 'Profilbild.png'; // WICHTIG: Muss exakt so heißen!
+    playerImg.src = 'Profilbild.png'; // Muss exakt so heißen!
+
+    // 2. Twitch-Bann-Icon laden (Das Hindernis)
+    const banImg = new Image();
+    // Nutzt das offizielle Twitch-Bann-Symbol
+    banImg.src = 'https://static-cdn.jtvnw.net/emoticons/v2/304332999/default/dark/3.0'; 
 
     let score = 0;
     let highscore = 0;
     let gameActive = true;
-    let isJumping = false;
 
     // Spieler (Nutzt dein Profilbild)
-    const player = { x: 50, y: 130, width: 40, height: 40, dy: 0, jumpForce: 10, gravity: 0.6, grounded: false };
+    // Werte für das größere Feld angepasst
+    const player = { x: 60, y: 220, width: 50, height: 50, dy: 0, jumpForce: 14, gravity: 0.7, grounded: false };
     
-    // Hindernis
-    const obstacle = { x: 380, y: 140, width: 25, height: 25, speed: 5, color: '#FF0000' };
+    // Hindernis (Nutzt das Bann-Icon)
+    const obstacle = { x: 450, y: 230, width: 40, height: 40, speed: 6 };
 
     function draw() {
         if (!gameActive) return;
@@ -181,28 +187,33 @@
 
         // Boden zeichnen
         ctx.fillStyle = "#e0e0e0";
-        ctx.fillRect(0, 170, canvas.width, 10);
+        ctx.fillRect(0, 270, canvas.width, 30); // Dickerer Boden
 
         // Spieler zeichnen (Dein Profilbild)
         if (playerImg.complete) {
             ctx.drawImage(playerImg, player.x, player.y, player.width, player.height);
         } else {
-            // Placeholder, falls Bild nicht lädt (Nutzt Twitch-Farbe)
+            // Placeholder (Twitch-Farbe)
             ctx.fillStyle = "#9146FF";
             ctx.fillRect(player.x, player.y, player.width, player.height);
         }
 
-        // Hindernis zeichnen
-        ctx.fillStyle = obstacle.color;
-        ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+        // Hindernis zeichnen (Twitch Bann Icon)
+        if (banImg.complete) {
+            ctx.drawImage(banImg, obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+        } else {
+            // Placeholder (Rot), falls Bild nicht lädt
+            ctx.fillStyle = "#FF0000";
+            ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+        }
 
         // Schwerkraft & Bewegung
         player.y += player.dy;
-        if (player.y + player.height < 170) {
+        if (player.y + player.height < 270) {
             player.dy += player.gravity;
             player.grounded = false;
         } else {
-            player.y = 170 - player.height;
+            player.y = 270 - player.height;
             player.dy = 0;
             player.grounded = true;
         }
@@ -210,14 +221,15 @@
         // Hindernis bewegen
         obstacle.x -= obstacle.speed;
         if (obstacle.x < -obstacle.width) {
-            obstacle.x = 380 + Math.random() * 100; // Random Startposition
+            // Random Startposition für mehr Abwechslung
+            obstacle.x = 450 + Math.random() * 150; 
             score++;
             if (score > highscore) {
                 highscore = score;
                 highscoreDisplay.innerText = highscore;
             }
             // Spiel wird langsam schneller
-            obstacle.speed += 0.15;
+            obstacle.speed += 0.2;
         }
 
         // Kollision prüfen
@@ -233,8 +245,8 @@
 
     function resetGame() {
         score = 0;
-        obstacle.x = 380;
-        obstacle.speed = 5;
+        obstacle.x = 450;
+        obstacle.speed = 6;
     }
 
     // Springen per Klick oder Touch
