@@ -22,6 +22,7 @@
             --color-instagram: #E1306C;
             --color-twitter-x: #000000;
             --color-discord: #5865F2;
+            --color-snapchat: #FFFC00; /* Neues Snapchat Gelb */
         }
 
         * {
@@ -148,6 +149,10 @@
         .btn-instagram { background-color: var(--color-instagram); }
         .btn-twitter { background-color: var(--color-twitter-x); }
         .btn-discord { background-color: var(--color-discord); }
+        
+        /* Snapchat Sonderregelung: Gelber Hintergrund braucht schwarzen Text */
+        .btn-snapchat { background-color: var(--color-snapchat); color: #000; }
+        .btn-snapchat:hover { color: #000; }
 
         /* --- SPIEL OVERLAY CSS --- */
         .canvas-wrapper {
@@ -168,14 +173,13 @@
             cursor: pointer;
         }
 
-        /* HIER ANGEPASST: Kein Blur mehr, nur noch sehr leicht durchsichtig weiß */
         .game-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(255, 255, 255, 0.4); /* Heller Schleier, klare Vorschau */
+            background: rgba(255, 255, 255, 0.4); 
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -201,7 +205,6 @@
 
         .play-btn:hover { transform: scale(1.05); background-color: #7a38e0; }
         
-        /* Titel im Overlay mit Textschatten, damit er auch auf hellem Hintergrund lesbar ist */
         #overlayTitle { 
             margin: 0 0 15px 0; 
             font-size: 2rem; 
@@ -251,6 +254,9 @@
                     <a href="DEIN_DISCORD_INVITE_LINK" class="link-btn btn-discord" target="_blank">
                         <i class="fab fa-discord"></i> Discord
                     </a>
+                    <a href="https://www.snapchat.com/add/kava1ari" class="link-btn btn-snapchat" target="_blank">
+                        <i class="fab fa-snapchat-ghost"></i> Snapchat
+                    </a>
                 </div>
             </div>
 
@@ -285,9 +291,6 @@
                     let highscore = 0;
                     let isPlaying = false; 
 
-                    // --- PHYSIK WIEDER ANGEPASST (DEUTLICH HÖHERER SPRUNG) ---
-                    // jumpForce auf 20 erhöht für einen viel höheren Sprung
-                    // gravity auf 0.85 gesetzt, damit man nicht zu schwerfällig wirkt
                     const player = { x: 50, y: 265, width: 85, height: 85, dy: 0, jumpForce: 20, gravity: 0.85, grounded: false };
                     const obstacle = { x: 650, y: 265, width: 85, height: 85, speed: 5 };
 
